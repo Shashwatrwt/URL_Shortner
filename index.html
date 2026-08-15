@@ -1,26 +1,23 @@
 //This is a scaffold for a simple web project. You can add your own components (CSS, JS) in the respective folders. The index.html file serves as the main entry point for your application.
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>My Project</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <header>
-    <h1>Welcome to My Project</h1>
-    <p>Project scaffold created. Add components (CSS, JS) in the folders.</p>
-  </header>
-  <main>
-    <section id="app">
-      <p>Edit <strong>index.html</strong> to start building your app.</p>
-      <div class="button-group">
-        //added buttons for testing
-        <button onclick="alert('Button 1 clicked!')">Button 1</button>
-        <button onclick="alert('Button 2 clicked!')">Button 2</button>
-        <button onclick="alert('Button 3 clicked!')">Button 3</button>
-      </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>URL Shortener</title>
+  </head>
+  <body>
+    <main>
+      <h1>URL Shortener</h1>
+      <form>
+        <label for="url">Enter a long URL</label>
+        <input id="url" type="url" placeholder="https://example.com" required />
+        <button type="submit">Shorten</button>
+      </form>
+    </main>
+    <section aria-live="polite">
+      <h2>Your short link</h2>
+      <p id="result">No link generated yet.</p>
     </section>
   </main>
   <footer>
