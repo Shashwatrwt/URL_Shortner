@@ -4,19 +4,34 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>URL Shortener</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
   </head>
   <body>
-    <main>
+    <main class="container">
       <h1>URL Shortener</h1>
-      <form>
+      <form id="shorten-form" novalidate>
         <label for="url">Enter a long URL</label>
-        <input id="url" type="url" placeholder="https://example.com" required />
-        <button type="submit">Shorten</button>
+        <div class="input-row">
+          <input
+            id="url"
+            name="url"
+            type="url"
+            placeholder="https://example.com"
+            required
+          />
+          <button type="submit">Shorten</button>
+        </div>
+        <p id="error" class="error" aria-live="polite"></p>
       </form>
     </main>
-    <section aria-live="polite">
+    <section class="result-panel" aria-live="polite">
       <h2>Your short link</h2>
       <p id="result">No link generated yet.</p>
+      <div class="actions">
+        <a id="short-link" href="#" target="_blank" rel="noreferrer">Open link</a>
+        <button id="copy-button" type="button" class="secondary">Copy</button>
+      </div>
     </section>
   </body>
 </html>
