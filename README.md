@@ -11,7 +11,9 @@ A simple, client-side URL shortener web application. Enter a long URL and genera
 - ✅ Responsive design with clean, modern styling
 - ✅ No backend required - runs entirely in the browser
 
+
 ## Project Structure
+
 
 ```
 ├── index.html      # HTML structure and markup
