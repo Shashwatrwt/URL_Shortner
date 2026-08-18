@@ -58,4 +58,3 @@ Works in all modern browsers that support:
 - Display a list of previously generated codes
 - Connect to a backend API for persistent short URL storage
 - Add QR code generation
-
