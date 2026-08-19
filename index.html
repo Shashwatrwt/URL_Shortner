@@ -4,23 +4,17 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>URL Shortener</title>
-    <link rel="stylesheet" href="style.css" />
-    <script src="script.js" defer></script>
   </head>
   <body>
-    <main class="container">
+    <main>
       <h1>URL Shortener</h1>
-
       <form>
         <label for="url">Enter a long URL</label>
-        <div class="input-row">
-          <input id="url" type="url" placeholder="https://example.com" required />
-          <button type="submit">Shorten</button>
-        </div>
+        <input id="url" type="url" placeholder="https://example.com" required />
+        <button type="submit">Shorten</button>
       </form>
     </main>
-
-    <section class="result-panel" aria-live="polite">
+    <section aria-live="polite">
       <h2>Your short link</h2>
       <p id="result">No link generated yet.</p>
     </section>
