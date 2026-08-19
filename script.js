@@ -1,10 +1,29 @@
-// Redirect-handling milestone (minimal & focused):
-// - Generate a 6-char code on submit and display a short URL that embeds the original URL as a query param `t`.
-// - On page load, if ?t=<encodedUrl> is present, decode and redirect to the original URL.
+// Local-storage milestone (minimal & focused):
+// - Store mappings of code -> target in localStorage
+// - Generate a 6-char code and save mapping on submit; show short URL as ?u=<code>
+// - On page load, if ?u=<code> present, resolve mapping and redirect
 
+const STORAGE_KEY = 'url-shortener-mappings';
 const form = document.querySelector('form');
 const input = document.getElementById('url');
 const result = document.getElementById('result');
+
+function readMappings() {
+  try {
+    const s = localStorage.getItem(STORAGE_KEY);
+    return s ? JSON.parse(s) : {};
+  } catch (e) {
+    return {};
+  }
+}
+
+function writeMappings(mappings) {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(mappings));
+  } catch (e) {
+    // ignore write errors
+  }
+}
 
 function makeCode() {
   const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
@@ -15,10 +34,9 @@ function makeCode() {
   return code;
 }
 
-function buildShortUrlFor(targetUrl, code) {
-  // Use the current page origin + pathname so the link points back to this page
+function buildShortUrlForCode(code) {
   const base = window.location.origin + window.location.pathname;
-  return `${base}?t=${encodeURIComponent(targetUrl)}&c=${encodeURIComponent(code)}`;
+  return `${base}?u=${encodeURIComponent(code)}`;
 }
 
 form.addEventListener('submit', (event) => {
@@ -36,30 +54,43 @@ form.addEventListener('submit', (event) => {
     return;
   }
 
-  const code = makeCode();
-  const shortUrl = buildShortUrlFor(url, code);
-  result.textContent = shortUrl;
+  const mappings = readMappings();
+
+  // If a mapping already exists for this URL, return its code
+  const existing = Object.keys(mappings).find((k) => mappings[k] === url);
+  const code = existing || (function getUniqueCode() {
+    let c;
+    do { c = makeCode(); } while (mappings[c]);
+    return c;
+  })();
+
+  mappings[code] = url;
+  writeMappings(mappings);
+
+  result.textContent = buildShortUrlForCode(code);
 });
 
-// Redirect handler: if the page is opened with ?t=<encodedTarget>, redirect to it.
-(function handleRedirect() {
+// Resolve short code on page load and redirect when possible
+(function resolveShortUrl() {
   const params = new URLSearchParams(window.location.search);
-  const encodedTarget = params.get('t');
-  if (!encodedTarget) return;
+  const code = params.get('u');
+  if (!code) return;
+
+  const mappings = readMappings();
+  const target = mappings[code];
+  if (!target) {
+    result.textContent = 'This short link does not exist.';
+    return;
+  }
 
   try {
-    const target = decodeURIComponent(encodedTarget);
-    // Basic validation: must be a http/https URL
     const parsed = new URL(target);
     if (!parsed.protocol.startsWith('http')) {
-      result.textContent = 'Invalid redirect target.';
+      result.textContent = 'Invalid stored target.';
       return;
     }
-
-    // Perform redirect
     window.location.replace(target);
   } catch (e) {
-    // If decoding/parsing fails, show a friendly message
-    result.textContent = 'Unable to resolve this short link.';
+    result.textContent = 'Unable to redirect to stored target.';
   }
 })();
