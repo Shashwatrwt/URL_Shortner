@@ -12,11 +12,13 @@
       <h1>URL Shortener</h1>
       <form>
         <label for="url">Enter a long URL</label>
-        <input id="url" type="url" placeholder="https://example.com" required />
-        <button type="submit">Shorten</button>
+        <div class="input-row">
+          <input id="url" type="url" placeholder="https://example.com" required />
+          <button type="submit">Shorten</button>
+        </div>
       </form>
     </main>
-    <section aria-live="polite">
+    <section class="result-panel" aria-live="polite">
       <h2>Your short link</h2>
       <p id="result">No link generated yet.</p>
     </section>
