@@ -37,6 +37,12 @@ input {
   font-size: 16px;
 }
 
+input:focus {
+  border-color: #007bff;
+  outline: 2px solid #b8d8ff;
+  outline-offset: 1px;
+}
+
 button {
   padding: 10px 20px;
   font-size: 16px;
@@ -45,6 +51,7 @@ button {
   color: white;
   border: none;
   border-radius: 4px;
+  transition: background-color 0.15s ease, transform 0.15s ease;
 }
 
 button:hover {
