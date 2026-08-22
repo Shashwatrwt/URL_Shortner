@@ -58,6 +58,15 @@ button:hover {
   background-color: #0056b3;
 }
 
+button:active {
+  transform: translateY(1px);
+}
+
+button:focus-visible {
+  outline: 3px solid #222;
+  outline-offset: 2px;
+}
+
 #result {
   margin: 0;
   color: #333;
