@@ -19,6 +19,11 @@ body {
   margin-bottom: 20px;
 }
 
+h1,
+h2 {
+  margin-top: 0;
+}
+
 label {
   display: block;
   margin-bottom: 10px;
@@ -69,6 +74,7 @@ button:focus-visible {
 
 #result {
   margin: 0;
+  overflow-wrap: anywhere;
   color: #333;
 }
 
