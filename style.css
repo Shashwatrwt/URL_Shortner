@@ -39,6 +39,7 @@ label {
 input {
   flex: 1;
   min-width: 0;
+  width: 100%;
   font: inherit;
   padding: 10px 12px;
   font-size: 16px;
