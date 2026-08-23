@@ -2,9 +2,11 @@ body {
   font-family: Arial, sans-serif;
   line-height: 1.5;
   max-width: 800px;
+  min-height: 100vh;
   margin: 0 auto;
   padding: 20px;
   background-color: #f5f5f5;
+  color: #222;
 }
 
 * {
@@ -81,6 +83,8 @@ button:focus-visible {
 #result {
   margin: 0;
   overflow-wrap: anywhere;
+  user-select: all;
+  cursor: text;
   color: #333;
 }
 
