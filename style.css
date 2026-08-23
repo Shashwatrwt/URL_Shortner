@@ -1,5 +1,6 @@
 body {
   font-family: Arial, sans-serif;
+  line-height: 1.5;
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
@@ -38,8 +39,11 @@ label {
 input {
   flex: 1;
   min-width: 0;
+  font: inherit;
   padding: 10px 12px;
   font-size: 16px;
+  border: 1px solid #bbb;
+  border-radius: 4px;
 }
 
 input:focus {
@@ -49,6 +53,7 @@ input:focus {
 }
 
 button {
+  font: inherit;
   padding: 10px 20px;
   font-size: 16px;
   cursor: pointer;
