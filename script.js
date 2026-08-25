@@ -1,7 +1,3 @@
-// Local-storage milestone (minimal & focused):
-// - Store mappings of code -> target in localStorage
-// - Generate a 6-char code and save mapping on submit; show short URL as ?u=<code>
-// - On page load, if ?u=<code> present, resolve mapping and redirect
 
 const STORAGE_KEY = 'url-shortener-mappings';
 const form = document.querySelector('form');
