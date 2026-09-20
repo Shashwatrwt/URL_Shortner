@@ -9,6 +9,8 @@ A simple, client-side URL shortener web application. Enter a long URL and genera
 - ✅ URL validation (requires protocol like https://)
 - ✅ Real-time feedback with aria-live region for accessibility
 - ✅ Responsive design with clean, modern styling
+- ✅ Saves URL mappings in browser localStorage
+- ✅ Resolves short links from the `?u=` query parameter
 - ✅ No backend required - runs entirely in the browser
 
 
@@ -33,17 +35,24 @@ A simple, client-side URL shortener web application. Enter a long URL and genera
 
 3. **Generate Short Code**
    - Click the "Shorten" button
-   - A random 6-character code will be generated and displayed
+   - A random 6-character code and short URL will be generated and displayed
 
-4. **Error Handling**
+4. **Open a Short Link**
+   - Open the generated URL in the same browser
+   - The application looks up the code and redirects to the original URL
+
+5. **Error Handling**
    - If the input is empty, you'll see an error message
    - If the URL is invalid, you'll be prompted to enter a valid URL with protocol
+   - Unknown or invalid short codes display an error instead of redirecting
 
 ## Technical Details
 
 - **Language**: HTML5, CSS3, JavaScript (ES6)
 - **Styling**: Custom CSS with flexbox layout
 - **Accessibility**: Uses `aria-live="polite"` for screen reader support
+- **Storage**: Uses localStorage under the `url-shortener-mappings` key
+- **Short URL format**: Uses the current page URL with a `?u=<code>` query parameter
 - **No Dependencies**: Pure vanilla JavaScript, no external libraries needed
 
 ## Browser Compatibility
@@ -55,8 +64,13 @@ Works in all modern browsers that support:
 
 ## Future Enhancements
 
-- Store short codes in browser localStorage
 - Add ability to copy short code to clipboard
 - Display a list of previously generated codes
 - Connect to a backend API for persistent short URL storage
 - Add QR code generation
+
+## Limitations
+
+- Links are available only in the browser profile that created them
+- Clearing browser storage removes the saved mappings
+- There is no server-side analytics, expiration, or account management
