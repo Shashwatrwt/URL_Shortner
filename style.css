@@ -1,3 +1,13 @@
+ :root {
+  --page-top: #f8fbff;
+  --page-bottom: #e8f2f4;
+  --surface: rgba(255, 255, 255, 0.94);
+  --surface-border: #d5e2e6;
+  --text: #19313a;
+  --muted-text: #3d555d;
+  --accent-soft: #edf8f7;
+}
+
 body {
   font-family: Arial, sans-serif;
   line-height: 1.5;
@@ -5,8 +15,10 @@ body {
   min-height: 100vh;
   margin: 0 auto;
   padding: 20px;
-  background: linear-gradient(180deg, #f5f5f5 0%, #eef4ff 100%);
-  color: #222;
+  background:
+    radial-gradient(circle at top left, rgba(219, 241, 239, 0.9), transparent 36%),
+    linear-gradient(145deg, var(--page-top) 0%, var(--page-bottom) 100%);
+  color: var(--text);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -25,8 +37,8 @@ main {
 
 .container,
 .result-panel {
-  background-color: #ffffff;
-  border: 1px solid #ddd;
+  background-color: var(--surface);
+  border: 1px solid var(--surface-border);
   border-radius: 10px;
   padding: 18px;
   margin-bottom: 20px;
@@ -44,7 +56,7 @@ label {
   display: block;
   margin-bottom: 10px;
   font-weight: bold;
-  color: #333;
+  color: var(--muted-text);
   letter-spacing: 0.01em;
   font-size: 0.98rem;
 }
@@ -115,13 +127,13 @@ form {
   user-select: all;
   cursor: text;
   font-size: 1.05rem;
-  color: #333;
+  color: var(--text);
   border-radius: 4px;
   transition: box-shadow 0.15s ease, background-color 0.15s ease;
 }
 
 #result:hover {
-  background-color: #f7faff;
+  background-color: var(--accent-soft);
   box-shadow: 0 0 0 1px rgba(0, 123, 255, 0.15);
 }
 
