@@ -3,6 +3,9 @@ const STORAGE_KEY = 'url-shortener-mappings';
 const form = document.querySelector('form');
 const input = document.getElementById('url');
 const result = document.getElementById('result');
+const copyButton = document.getElementById('copy-button');
+const copyStatus = document.getElementById('copy-status');
+let currentShortUrl = '';
 
 function readMappings() {
   try {
@@ -40,6 +43,8 @@ form.addEventListener('submit', (event) => {
   const url = input.value.trim();
   if (!url) {
     result.textContent = 'Please enter a URL to shorten.';
+    currentShortUrl = '';
+    copyButton.disabled = true;
     return;
   }
 
@@ -47,6 +52,8 @@ form.addEventListener('submit', (event) => {
     new URL(url);
   } catch (e) {
     result.textContent = 'Please enter a valid URL including the protocol (https://).';
+    currentShortUrl = '';
+    copyButton.disabled = true;
     return;
   }
 
@@ -63,7 +70,21 @@ form.addEventListener('submit', (event) => {
   mappings[code] = url;
   writeMappings(mappings);
 
-  result.textContent = buildShortUrlForCode(code);
+  currentShortUrl = buildShortUrlForCode(code);
+  result.textContent = currentShortUrl;
+  copyButton.disabled = false;
+  copyStatus.textContent = '';
+});
+
+copyButton.addEventListener('click', async () => {
+  if (!currentShortUrl) return;
+
+  try {
+    await navigator.clipboard.writeText(currentShortUrl);
+    copyStatus.textContent = 'Copied!';
+  } catch (e) {
+    copyStatus.textContent = 'Copy failed. Select the link to copy it manually.';
+  }
 });
 
 // Resolve short code on page load and redirect when possible
