@@ -27,7 +27,9 @@ A simple, client-side URL shortener web application. Enter a long URL and genera
 ## How to Use
 
 1. **Open the Application**
-   - Open `index.html` in your web browser
+   - Start a local web server from the project folder
+   - Open the server address in your web browser
+   - Opening the file directly may prevent generated links from working correctly
 
 2. **Enter a URL**
    - Type or paste a long URL in the input field
@@ -36,6 +38,7 @@ A simple, client-side URL shortener web application. Enter a long URL and genera
 3. **Generate Short Code**
    - Click the "Shorten" button
    - A random 6-character code and short URL will be generated and displayed
+   - Submitting the same URL again reuses its existing short code
 
 4. **Open a Short Link**
    - Open the generated URL in the same browser
@@ -54,6 +57,16 @@ A simple, client-side URL shortener web application. Enter a long URL and genera
 - **Storage**: Uses localStorage under the `url-shortener-mappings` key
 - **Short URL format**: Uses the current page URL with a `?u=<code>` query parameter
 - **No Dependencies**: Pure vanilla JavaScript, no external libraries needed
+
+## Development
+
+From the project folder, run a simple local server such as:
+
+```bash
+python -m http.server 8000
+```
+
+Then visit `http://localhost:8000` in your browser.
 
 ## Browser Compatibility
 
