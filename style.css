@@ -6,6 +6,7 @@
   --text: #16363d;
   --muted-text: #44656d;
   --accent-soft: #ebfbff;
+  --accent-strong: #dff6fa;
   --button-blue: #0b7ea4;
   --button-blue-hover: #085f83;
   --teal-deep: #0e3940;
@@ -36,25 +37,26 @@ body {
 main {
   width: 100%;
   max-width: 620px;
-  padding: 10px 0;
+  padding: 18px 0;
 }
 
 .container,
 .result-panel {
   background-color: var(--surface);
   border: 1px solid var(--surface-border);
-  border-radius: 12px;
-  padding: 20px 18px;
-  margin-bottom: 20px;
-  box-shadow: 0 6px 16px rgba(13, 40, 47, 0.05);
+  border-radius: 14px;
+  padding: 22px 20px;
+  margin-bottom: 18px;
+  box-shadow: 0 10px 24px rgba(13, 40, 47, 0.06);
 }
 
 h1,
 h2 {
   margin-top: 0;
-  margin-bottom: 14px;
+  margin-bottom: 16px;
   letter-spacing: -0.02em;
   font-weight: 700;
+  color: var(--teal-deep);
 }
 
 label {
@@ -77,11 +79,12 @@ input {
   min-width: 0;
   width: 100%;
   font: inherit;
-  padding: 10px 12px;
+  padding: 12px 13px;
   font-size: 16px;
   border: 1px solid #bfd9df;
   border-radius: 8px;
   background-color: #fff;
+  color: var(--text);
   transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
 }
 
@@ -94,13 +97,14 @@ input:focus {
 
 button {
   font: inherit;
-  padding: 10px 20px;
+  padding: 11px 20px;
   font-size: 16px;
   cursor: pointer;
   background: linear-gradient(135deg, var(--button-blue) 0%, var(--teal-medium) 100%);
   color: white;
   border: none;
   border-radius: 8px;
+  font-weight: 600;
   transition: background-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
   box-shadow: 0 6px 16px rgba(11, 126, 164, 0.2);
 }
@@ -125,32 +129,34 @@ form {
 
 #result {
   margin: 0;
-  min-height: 1.5em;
-  padding: 0.5rem 0.55rem;
+  min-height: 1.8em;
+  padding: 0.7rem 0.7rem;
   overflow-wrap: anywhere;
   user-select: all;
   cursor: text;
   font-size: 1.05rem;
   color: var(--text);
-  border-radius: 6px;
+  background-color: var(--accent-soft);
+  border: 1px solid rgba(26, 163, 180, 0.12);
+  border-radius: 8px;
   transition: box-shadow 0.15s ease, background-color 0.15s ease;
 }
 
 #result:hover {
-  background-color: var(--accent-soft);
-  box-shadow: 0 0 0 1px rgba(0, 123, 255, 0.15);
+  background-color: var(--accent-strong);
+  box-shadow: inset 0 0 0 1px rgba(17, 126, 146, 0.12);
 }
 
 .result-actions {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-top: 14px;
+  margin-top: 16px;
   min-height: 44px;
 }
 
 .result-actions button {
-  padding: 8px 14px;
+  padding: 9px 15px;
   font-size: 0.95rem;
 }
 
