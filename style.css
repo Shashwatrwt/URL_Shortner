@@ -1,4 +1,4 @@
- :root {
+:root {
   --page-top: #f8fbff;
   --page-bottom: #e8f2f4;
   --surface: rgba(255, 255, 255, 0.94);
@@ -6,27 +6,31 @@
   --text: #19313a;
   --muted-text: #3d555d;
   --accent-soft: #edf8f7;
-}
-
-body {
-  font-family: Arial, sans-serif;
-  line-height: 1.5;
-  max-width: 800px;
-  min-height: 100vh;
-  margin: 0 auto;
-  padding: 20px;
-  background:
-    radial-gradient(circle at top left, rgba(219, 241, 239, 0.9), transparent 36%),
-    linear-gradient(145deg, var(--page-top) 0%, var(--page-bottom) 100%);
-  color: var(--text);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  letter-spacing: 0.01em;
+  --button-blue: #0057d9;
+  --button-blue-hover: #004bb8;
+  --teal-deep: #0e3940;
+  --teal-medium: #0fa4af;
+  --teal-soft: #7ed9e3;
+  --success: #176b38;
 }
 
 * {
   box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  line-height: 1.5;
+  color: var(--text);
+  background:
+    radial-gradient(circle at top left, rgba(219, 241, 239, 0.9), transparent 36%),
+    linear-gradient(145deg, var(--page-top) 0%, var(--page-bottom) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: 0.01em;
 }
 
 main {
@@ -81,10 +85,10 @@ input {
 }
 
 input:focus {
-  border-color: #007bff;
-  outline: 2px solid #b8d8ff;
+  border-color: var(--teal-medium);
+  outline: 2px solid rgba(15, 164, 175, 0.2);
   outline-offset: 1px;
-  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.08);
+  box-shadow: 0 0 0 2px rgba(15, 164, 175, 0.08);
 }
 
 button {
@@ -92,7 +96,7 @@ button {
   padding: 10px 20px;
   font-size: 16px;
   cursor: pointer;
-  background-color: #0057d9;
+  background: linear-gradient(135deg, var(--button-blue) 0%, var(--teal-medium) 100%);
   color: white;
   border: none;
   border-radius: 6px;
@@ -101,13 +105,12 @@ button {
 }
 
 button:hover {
-  background-color: #004bb8;
+  background: linear-gradient(135deg, var(--button-blue-hover) 0%, var(--teal-deep) 100%);
   box-shadow: 0 2px 6px rgba(0, 87, 217, 0.18);
 }
 
 button:active {
   transform: translateY(1px);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
 }
 
 button:focus-visible {
@@ -155,7 +158,7 @@ form {
 }
 
 #copy-status {
-  color: #176b38;
+  color: var(--success);
   font-size: 0.9rem;
 }
 
