@@ -36,7 +36,7 @@ body {
 main {
   width: 100%;
   max-width: 620px;
-  padding: 6px 0;
+  padding: 10px 0;
 }
 
 .container,
@@ -44,9 +44,9 @@ main {
   background-color: var(--surface);
   border: 1px solid var(--surface-border);
   border-radius: 12px;
-  padding: 18px;
+  padding: 20px 18px;
   margin-bottom: 20px;
-  box-shadow: 0 8px 18px rgba(13, 40, 47, 0.06);
+  box-shadow: 0 6px 16px rgba(13, 40, 47, 0.05);
 }
 
 h1,
@@ -54,15 +54,16 @@ h2 {
   margin-top: 0;
   margin-bottom: 14px;
   letter-spacing: -0.02em;
+  font-weight: 700;
 }
 
 label {
   display: block;
   margin-bottom: 10px;
-  font-weight: bold;
+  font-weight: 700;
   color: var(--muted-text);
   letter-spacing: 0.01em;
-  font-size: 0.98rem;
+  font-size: 0.96rem;
 }
 
 .input-row {
@@ -125,7 +126,7 @@ form {
 #result {
   margin: 0;
   min-height: 1.5em;
-  padding-top: 0.1rem;
+  padding: 0.5rem 0.55rem;
   overflow-wrap: anywhere;
   user-select: all;
   cursor: text;
@@ -145,6 +146,7 @@ form {
   align-items: center;
   gap: 10px;
   margin-top: 14px;
+  min-height: 44px;
 }
 
 .result-actions button {
