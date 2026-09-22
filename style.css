@@ -1,4 +1,4 @@
- :root {
+:root {
   --page-top: #f8fbff;
   --page-bottom: #e8f2f4;
   --surface: rgba(255, 255, 255, 0.94);
@@ -6,6 +6,12 @@
   --text: #19313a;
   --muted-text: #3d555d;
   --accent-soft: #edf8f7;
+  --accent-strong: #dff8fb;
+  --button-blue: #0b7ea4;
+  --button-blue-hover: #085f83;
+  --teal-deep: #0e3940;
+  --teal-medium: #1aa3b4;
+  --success: #176b38;
 }
 
 body {
@@ -16,7 +22,8 @@ body {
   margin: 0 auto;
   padding: 20px;
   background:
-    radial-gradient(circle at top left, rgba(219, 241, 239, 0.9), transparent 36%),
+    radial-gradient(circle at top left, rgba(145, 214, 223, 0.72), transparent 28%),
+    radial-gradient(circle at bottom right, rgba(15, 119, 129, 0.12), transparent 30%),
     linear-gradient(145deg, var(--page-top) 0%, var(--page-bottom) 100%);
   color: var(--text);
   display: flex;
@@ -39,10 +46,10 @@ main {
 .result-panel {
   background-color: var(--surface);
   border: 1px solid var(--surface-border);
-  border-radius: 10px;
-  padding: 18px;
-  margin-bottom: 20px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  border-radius: 14px;
+  padding: 20px 18px;
+  margin-bottom: 18px;
+  box-shadow: 0 10px 24px rgba(13, 40, 47, 0.06);
 }
 
 h1,
@@ -91,20 +98,21 @@ input:focus {
 
 button {
   font: inherit;
-  padding: 10px 20px;
+  padding: 11px 20px;
   font-size: 16px;
   cursor: pointer;
-  background-color: #0057d9;
+  background: linear-gradient(135deg, var(--button-blue) 0%, var(--teal-medium) 100%);
   color: white;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
+  font-weight: 600;
   transition: background-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 7px 16px rgba(11, 126, 164, 0.2);
 }
 
 button:hover {
-  background-color: #004bb8;
-  box-shadow: 0 2px 6px rgba(0, 87, 217, 0.18);
+  background: linear-gradient(135deg, var(--button-blue-hover) 0%, var(--teal-deep) 100%);
+  box-shadow: 0 10px 20px rgba(11, 126, 164, 0.2);
 }
 
 button:active {
@@ -137,8 +145,8 @@ form {
 }
 
 #result:hover {
-  background-color: var(--accent-soft);
-  box-shadow: 0 0 0 1px rgba(0, 123, 255, 0.15);
+  background-color: var(--accent-strong);
+  box-shadow: inset 0 0 0 1px rgba(17, 126, 146, 0.12);
 }
 
 .result-actions {
@@ -159,8 +167,10 @@ form {
 }
 
 #copy-status {
-  color: #176b38;
+  color: var(--success);
   font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
 }
 
 @media (max-width: 600px) {
