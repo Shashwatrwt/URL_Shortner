@@ -57,17 +57,21 @@ main {
 h1,
 h2 {
   margin-top: 0;
-  margin-bottom: 14px;
-  letter-spacing: -0.02em;
+  margin-bottom: 16px;
+  color: var(--text);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 400;
 }
 
 label {
   display: block;
   margin-bottom: 10px;
-  font-weight: bold;
+  font-weight: 400;
   color: var(--muted-text);
-  letter-spacing: 0.01em;
-  font-size: 0.98rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.76rem;
 }
 
 .input-row {
@@ -81,19 +85,20 @@ input {
   min-width: 0;
   width: 100%;
   font: inherit;
-  padding: 10px 12px;
+  padding: 13px 14px;
   font-size: 16px;
-  border: 1px solid #bbb;
-  border-radius: 6px;
-  background-color: #fff;
+  border: 1px solid rgba(174, 231, 236, 0.36);
+  border-radius: 2px;
+  background-color: rgba(4, 32, 39, 0.72);
+  color: var(--text);
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 input:focus {
-  border-color: #007bff;
-  outline: 2px solid #b8d8ff;
+  border-color: var(--accent-strong);
+  outline: 2px solid rgba(27, 167, 181, 0.24);
   outline-offset: 1px;
-  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.08);
+  box-shadow: 0 0 0 2px rgba(27, 167, 181, 0.12);
 }
 
 button {
