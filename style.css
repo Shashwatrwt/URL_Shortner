@@ -25,9 +25,10 @@ body {
   background:
     linear-gradient(180deg, rgba(102, 185, 196, 0.98) 0%, rgba(118, 190, 201, 0.96) 18%, rgba(18, 61, 66, 0.94) 19%, rgba(8, 35, 43, 0.96) 100%);
   color: var(--text);
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 230px;
+  display: flex;
+  flex-direction: column;
   align-items: stretch;
+  justify-content: flex-start;
   letter-spacing: 0.01em;
 }
 
@@ -58,15 +59,16 @@ main {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  min-height: 100vh;
+  min-height: 76vh;
   padding: 8vw;
   background: linear-gradient(145deg, rgba(8, 35, 43, 0.96), rgba(15, 95, 105, 0.86));
 }
 
 .result-panel {
-  min-height: 100vh;
-  padding: 32px 22px;
-  background: linear-gradient(180deg, var(--panel-deep) 0 20%, var(--panel-mid) 20% 40%, var(--panel-warm) 40% 60%, var(--panel-cyan) 60% 80%, #a8dfe8 80%);
+  width: 100%;
+  min-height: 24vh;
+  padding: 32px 8vw;
+  background: linear-gradient(90deg, var(--panel-deep) 0 20%, var(--panel-mid) 20% 40%, var(--panel-warm) 40% 60%, var(--panel-cyan) 60% 80%, #a8dfe8 80%);
 }
 
 h1,
@@ -196,7 +198,6 @@ form {
 
 @media (max-width: 600px) {
   body {
-    grid-template-columns: 1fr;
     padding: 0;
   }
 
