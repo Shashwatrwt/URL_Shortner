@@ -11,8 +11,6 @@
   --button-blue-hover: #0f9fb0;
   --panel-deep: #0b2f38;
   --panel-mid: #0f5564;
-  --panel-warm: #d17555;
-  --panel-cyan: #3fb9c9;
   --success: #9de7d0;
 }
 
@@ -23,7 +21,7 @@ body {
   margin: 0;
   padding: 0;
   background:
-    linear-gradient(180deg, rgba(102, 185, 196, 0.98) 0%, rgba(118, 190, 201, 0.96) 18%, rgba(18, 61, 66, 0.94) 19%, rgba(8, 35, 43, 0.96) 100%);
+    linear-gradient(145deg, rgba(8, 35, 43, 0.98), rgba(15, 95, 105, 0.92));
   color: var(--text);
   display: flex;
   flex-direction: column;
@@ -46,8 +44,8 @@ main {
 
 .container,
 .result-panel {
-  background-color: var(--surface);
-  border: 1px solid var(--surface-border);
+  background-color: transparent;
+  border: 0;
   border-radius: 0;
   padding: 24px 22px;
   margin: 0;
@@ -59,16 +57,16 @@ main {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  min-height: 76vh;
+  min-height: 64vh;
   padding: 8vw;
-  background: linear-gradient(145deg, rgba(8, 35, 43, 0.96), rgba(15, 95, 105, 0.86));
+  background: transparent;
 }
 
 .result-panel {
   width: 100%;
-  min-height: 24vh;
+  min-height: 36vh;
   padding: 32px 8vw;
-  background: linear-gradient(90deg, var(--panel-deep) 0 20%, var(--panel-mid) 20% 40%, var(--panel-warm) 40% 60%, var(--panel-cyan) 60% 80%, #a8dfe8 80%);
+  background: transparent;
 }
 
 h1,
@@ -135,8 +133,8 @@ button {
 }
 
 button:hover {
-  background-color: var(--panel-warm);
-  color: #fff5ef;
+  background-color: var(--button-blue-hover);
+  color: #06343c;
   box-shadow: 0 7px 18px rgba(0, 0, 0, 0.24);
 }
 
@@ -164,7 +162,7 @@ form {
   font-size: 1.05rem;
   color: var(--text);
   background-color: rgba(15, 95, 105, 0.72);
-  border-left: 3px solid var(--panel-warm);
+  border-left: 3px solid var(--accent-strong);
   border-radius: 1px;
   transition: box-shadow 0.15s ease, background-color 0.15s ease;
 }
