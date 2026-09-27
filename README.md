@@ -11,6 +11,8 @@ A simple, client-side URL shortener web application. Enter a long URL and genera
 - ✅ Responsive design with clean, modern styling
 - ✅ Saves URL mappings in browser localStorage
 - ✅ Resolves short links from the `?u=` query parameter
+- ✅ Displays local link history with original and shortened URLs
+- ✅ Tracks total clicks and clicks made today for each browser profile
 - ✅ No backend required - runs entirely in the browser
 
 
@@ -55,6 +57,7 @@ A simple, client-side URL shortener web application. Enter a long URL and genera
 - **Styling**: Custom CSS with flexbox layout
 - **Accessibility**: Uses `aria-live="polite"` for screen reader support
 - **Storage**: Uses localStorage under the `url-shortener-mappings` key
+- **Analytics**: Stores click totals and click timestamps locally before redirecting
 - **Short URL format**: Uses the current page URL with a `?u=<code>` query parameter
 - **No Dependencies**: Pure vanilla JavaScript, no external libraries needed
 
@@ -77,13 +80,13 @@ Works in all modern browsers that support:
 
 ## Future Enhancements
 
-- Add ability to copy short code to clipboard
-- Display a list of previously generated codes
-- Connect to a backend API for persistent short URL storage
-- Add QR code generation
+- Add custom aliases and QR code generation
+- Connect to a backend API for shared links and server-side analytics
+- Add accounts, expiration, and link management
 
 ## Limitations
 
 - Links are available only in the browser profile that created them
 - Clearing browser storage removes the saved mappings
-- There is no server-side analytics, expiration, or account management
+- Analytics are local estimates and cannot identify unique visitors, referrers, browsers, or locations
+- There is no server-side expiration, authentication, or account management
