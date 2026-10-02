@@ -54,6 +54,17 @@ function buildShortUrlForCode(code) {
   return `${base}?u=${encodeURIComponent(code)}`;
 }
 
+function normalizeAlias(value) {
+  return value.trim().replace(/\s+/g, '-').toLowerCase();
+}
+
+function generateQrCode(dataUrl) {
+  const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(dataUrl)}`;
+  qrCode.src = qrUrl;
+  qrCode.alt = `QR code for ${dataUrl}`;
+  qrBox.hidden = false;
+}
+
 function renderHistory(mappings) {
   const entries = Object.entries(mappings).sort((a, b) => (
     new Date(b[1].createdAt) - new Date(a[1].createdAt)
@@ -85,6 +96,8 @@ function renderHistory(mappings) {
 form.addEventListener('submit', (event) => {
   event.preventDefault();
   const url = input.value.trim();
+  const requestedAlias = normalizeAlias(aliasInput.value);
+
   if (!url) {
     result.textContent = 'Please enter a URL to shorten.';
     currentShortUrl = '';
@@ -101,17 +114,30 @@ form.addEventListener('submit', (event) => {
     return;
   }
 
-  const mappings = readMappings();
+  if (requestedAlias && !/^[a-z0-9_-]{3,20}$/i.test(requestedAlias)) {
+    result.textContent = 'Custom alias can only contain letters, numbers, hyphen, and underscore.';
+    currentShortUrl = '';
+    copyButton.disabled = true;
+    return;
+  }
 
-  // If a mapping already exists for this URL, return its code
+  const mappings = readMappings();
   const existing = Object.keys(mappings).find((k) => mappings[k].url === url);
-  const code = existing || (function getUniqueCode() {
+
+  if (requestedAlias && mappings[requestedAlias] && mappings[requestedAlias].url !== url) {
+    result.textContent = 'That custom short code is already taken.';
+    currentShortUrl = '';
+    copyButton.disabled = true;
+    return;
+  }
+
+  const code = requestedAlias || existing || (function getUniqueCode() {
     let c;
     do { c = makeCode(); } while (mappings[c]);
     return c;
   })();
 
-  if (!existing) {
+  if (!existing && !mappings[code]) {
     mappings[code] = {
       url,
       createdAt: new Date().toISOString(),
@@ -120,13 +146,17 @@ form.addEventListener('submit', (event) => {
       clickDates: []
     };
   }
+
   writeMappings(mappings);
   renderHistory(mappings);
+  aliasInput.value = '';
 
   currentShortUrl = buildShortUrlForCode(code);
   result.textContent = currentShortUrl;
   copyButton.disabled = false;
+  qrButton.disabled = false;
   copyStatus.textContent = '';
+  qrBox.hidden = true;
 });
 
 copyButton.addEventListener('click', async () => {
@@ -138,6 +168,11 @@ copyButton.addEventListener('click', async () => {
   } catch (e) {
     copyStatus.textContent = 'Copy failed. Select the link to copy it manually.';
   }
+});
+
+qrButton.addEventListener('click', () => {
+  if (!currentShortUrl) return;
+  generateQrCode(currentShortUrl);
 });
 
 // Resolve short code on page load and redirect when possible
