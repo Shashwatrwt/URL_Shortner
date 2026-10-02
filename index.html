@@ -27,7 +27,11 @@
       <p id="result">No link generated yet.</p>
       <div class="result-actions">
         <button id="copy-button" type="button" disabled>Copy link</button>
+        <button id="qr-button" type="button" class="secondary-button" disabled>Generate QR</button>
         <span id="copy-status" role="status"></span>
+      </div>
+      <div id="qr-box" class="qr-box" hidden>
+        <img id="qr-code" alt="QR code for the shortened link" />
       </div>
     </section>
     <section class="history-panel" aria-labelledby="history-title">
