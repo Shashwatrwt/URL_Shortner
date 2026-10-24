@@ -27,13 +27,33 @@ function readMappings() {
       lastClickedAt: typeof value === 'string' ? null : value.lastClickedAt || null,
       clickDates: typeof value === 'string' || !Array.isArray(value.clickDates) ? [] : value.clickDates
     }]));
-    return {};
+  } catch (error) {
+    throw new Error('Unable to read saved links. Browser storage may be unavailable or its data may be invalid.', { cause: error });
   }
 }
 
 function writeMappings(mappings) {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(mappings));
+  } catch (error) {
+    throw new Error('Unable to save this link. Browser storage may be unavailable or full.', { cause: error });
+  }
+}
+
+function showStorageError(error) {
+  result.textContent = error.message;
+  currentShortUrl = '';
+  copyButton.disabled = true;
+  qrButton.disabled = true;
+  qrBox.hidden = true;
+}
+
+function loadMappings() {
+  try {
+    return readMappings();
+  } catch (error) {
+    showStorageError(error);
+    return null;
   }
 }
 
@@ -210,20 +230,13 @@ qrButton.addEventListener('click', () => {
   record.lastClickedAt = clickedAt;
   record.clickDates.push(clickedAt);
   try {
-    const parsed = new URL(record.url);
-    if (!parsed.protocol.startsWith('http')) {
-      result.textContent = 'Invalid stored target.';
-      return;
-    }
-    record.clicks += 1;
-    const clickedAt = new Date().toISOString();
-    record.lastClickedAt = clickedAt;
-    record.clickDates.push(clickedAt);
     writeMappings(mappings);
-    window.location.replace(record.url);
-  } catch (e) {
-    result.textContent = 'Unable to redirect to stored target.';
+  } catch (error) {
+    showStorageError(error);
+    return;
   }
+  window.location.replace(record.url);
 })();
 
-renderHistory(readMappings());
+const initialMappings = loadMappings();
+if (initialMappings) renderHistory(initialMappings);
