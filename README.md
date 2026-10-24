@@ -6,7 +6,7 @@ A simple, client-side URL shortener web application. Enter a long URL and genera
 
 - ✅ Easy-to-use interface for shortening URLs
 - ✅ Generates random 6-character short codes
-- ✅ URL validation (requires protocol like https://)
+- ✅ URL validation (accepts HTTP and HTTPS only)
 - ✅ Real-time feedback with aria-live region for accessibility
 - ✅ Responsive design with clean, modern styling
 - ✅ Saves URL mappings in browser localStorage
@@ -35,12 +35,13 @@ A simple, client-side URL shortener web application. Enter a long URL and genera
 
 2. **Enter a URL**
    - Type or paste a long URL in the input field
-   - Must include the protocol (e.g., `https://example.com`)
+   - Must use HTTP or HTTPS (e.g., `https://example.com`); other protocols are not supported
 
 3. **Generate Short Code**
    - Click the "Shorten" button
    - A random 6-character code and short URL will be generated and displayed
-   - Submitting the same URL again reuses its existing short code
+   - Submitting the same URL again reuses its existing short code, unless you provide a new custom alias
+   - A custom alias for an existing URL creates another short code pointing to that URL
 
 4. **Open a Short Link**
    - Open the generated URL in the same browser
@@ -48,7 +49,8 @@ A simple, client-side URL shortener web application. Enter a long URL and genera
 
 5. **Error Handling**
    - If the input is empty, you'll see an error message
-   - If the URL is invalid, you'll be prompted to enter a valid URL with protocol
+   - If the URL is invalid or uses an unsupported protocol, you'll be prompted to enter a valid HTTP or HTTPS URL
+   - If browser storage cannot be read or written, the app displays an error instead of presenting an unsaved link as successful
    - Unknown or invalid short codes display an error instead of redirecting
 
 ## Technical Details
