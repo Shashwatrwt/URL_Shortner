@@ -58,6 +58,15 @@ function normalizeAlias(value) {
   return value.trim().replace(/\s+/g, '-').toLowerCase();
 }
 
+function parseHttpUrl(value) {
+  try {
+    const parsed = new URL(value);
+    return parsed.protocol === 'http:' || parsed.protocol === 'https:' ? parsed : null;
+  } catch (error) {
+    return null;
+  }
+}
+
 function generateQrCode(dataUrl) {
   const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(dataUrl)}`;
   qrCode.src = qrUrl;
@@ -121,7 +130,8 @@ form.addEventListener('submit', (event) => {
     return;
   }
 
-  const mappings = readMappings();
+  const mappings = loadMappings();
+  if (!mappings) return;
   const existing = Object.keys(mappings).find((k) => mappings[k].url === url);
 
   if (requestedAlias && mappings[requestedAlias] && mappings[requestedAlias].url !== url) {
@@ -137,7 +147,7 @@ form.addEventListener('submit', (event) => {
     return c;
   })();
 
-  if (!existing && !mappings[code]) {
+  if (!mappings[code]) {
     mappings[code] = {
       url,
       createdAt: new Date().toISOString(),
@@ -147,7 +157,12 @@ form.addEventListener('submit', (event) => {
     };
   }
 
-  writeMappings(mappings);
+  try {
+    writeMappings(mappings);
+  } catch (error) {
+    showStorageError(error);
+    return;
+  }
   renderHistory(mappings);
   aliasInput.value = '';
 
@@ -181,13 +196,24 @@ qrButton.addEventListener('click', () => {
   const code = params.get('u');
   if (!code) return;
 
-  const mappings = readMappings();
+  const mappings = loadMappings();
+  if (!mappings) return;
   const record = mappings[code];
   if (!record) {
     result.textContent = 'This short link does not exist.';
     return;
   }
 
+  const parsed = parseHttpUrl(record.url);
+  if (!parsed) {
+    result.textContent = 'This short link has an invalid stored target. Only HTTP and HTTPS links are allowed.';
+    return;
+  }
+
+  record.clicks += 1;
+  const clickedAt = new Date().toISOString();
+  record.lastClickedAt = clickedAt;
+  record.clickDates.push(clickedAt);
   try {
     const parsed = new URL(record.url);
     if (!parsed.protocol.startsWith('http')) {
