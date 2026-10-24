@@ -27,7 +27,6 @@ function readMappings() {
       lastClickedAt: typeof value === 'string' ? null : value.lastClickedAt || null,
       clickDates: typeof value === 'string' || !Array.isArray(value.clickDates) ? [] : value.clickDates
     }]));
-  } catch (e) {
     return {};
   }
 }
@@ -35,7 +34,6 @@ function readMappings() {
 function writeMappings(mappings) {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(mappings));
-    // ignore write errors
   }
 }
 
@@ -113,10 +111,8 @@ form.addEventListener('submit', (event) => {
     return;
   }
 
-  try {
-    new URL(url);
-  } catch (e) {
-    result.textContent = 'Please enter a valid URL including the protocol (https://).';
+  if (!parseHttpUrl(url)) {
+    result.textContent = 'Please enter a valid HTTP or HTTPS URL (for example, https://example.com).';
     currentShortUrl = '';
     copyButton.disabled = true;
     return;
