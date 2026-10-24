@@ -35,7 +35,6 @@ function readMappings() {
 function writeMappings(mappings) {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(mappings));
-  } catch (e) {
     // ignore write errors
   }
 }
