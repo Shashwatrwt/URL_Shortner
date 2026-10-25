@@ -37,7 +37,6 @@ function readMappings() {
       createdAt: typeof value === 'string' ? new Date().toISOString() : value.createdAt,
       clicks: typeof value === 'string' ? 0 : Number(value.clicks) || 0,
       lastClickedAt: typeof value === 'string' ? null : value.lastClickedAt || null,
-      clickDates: typeof value === 'string' || !Array.isArray(value.clickDates) ? [] : value.clickDates
     }]));
   } catch (error) {
     throw new Error('Unable to read saved links. Browser storage may be unavailable or its data may be invalid.', { cause: error });
@@ -52,7 +51,6 @@ function writeMappings(mappings) {
   }
 }
 
-function showStorageError(error) {
   result.textContent = error.message;
   currentShortUrl = '';
   copyButton.disabled = true;
@@ -110,7 +108,6 @@ function renderHistory(mappings) {
   const totalClicks = entries.reduce((total, [, record]) => total + record.clicks, 0);
   const today = new Date().toDateString();
   const clicksToday = entries.reduce((total, [, record]) => (
-    total + record.clickDates.filter((date) => new Date(date).toDateString() === today).length
   ), 0);
   linkCount.textContent = entries.length;
   clickCount.textContent = totalClicks;
