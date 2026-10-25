@@ -37,6 +37,7 @@ function readMappings() {
       createdAt: typeof value === 'string' ? new Date().toISOString() : value.createdAt,
       clicks: typeof value === 'string' ? 0 : Number(value.clicks) || 0,
       lastClickedAt: typeof value === 'string' ? null : value.lastClickedAt || null,
+      ...getTodayClicks(typeof value === 'string' ? null : value)
     }]));
   } catch (error) {
     throw new Error('Unable to read saved links. Browser storage may be unavailable or its data may be invalid.', { cause: error });
@@ -51,11 +52,22 @@ function writeMappings(mappings) {
   }
 }
 
-  result.textContent = error.message;
+function resetResultActions() {
   currentShortUrl = '';
   copyButton.disabled = true;
   qrButton.disabled = true;
+  copyStatus.textContent = '';
   qrBox.hidden = true;
+  qrCode.removeAttribute('src');
+}
+
+function showFormError(message) {
+  resetResultActions();
+  result.textContent = message;
+}
+
+function showStorageError(error) {
+  showFormError(error.message);
 }
 
 function loadMappings() {
@@ -108,6 +120,7 @@ function renderHistory(mappings) {
   const totalClicks = entries.reduce((total, [, record]) => total + record.clicks, 0);
   const today = new Date().toDateString();
   const clicksToday = entries.reduce((total, [, record]) => (
+    total + (record.clicksTodayDate === today ? record.clicksToday : 0)
   ), 0);
   linkCount.textContent = entries.length;
   clickCount.textContent = totalClicks;
@@ -134,23 +147,17 @@ form.addEventListener('submit', (event) => {
   const requestedAlias = normalizeAlias(aliasInput.value);
 
   if (!url) {
-    result.textContent = 'Please enter a URL to shorten.';
-    currentShortUrl = '';
-    copyButton.disabled = true;
+    showFormError('Please enter a URL to shorten.');
     return;
   }
 
   if (!parseHttpUrl(url)) {
-    result.textContent = 'Please enter a valid HTTP or HTTPS URL (for example, https://example.com).';
-    currentShortUrl = '';
-    copyButton.disabled = true;
+    showFormError('Please enter a valid HTTP or HTTPS URL (for example, https://example.com).');
     return;
   }
 
   if (requestedAlias && !/^[a-z0-9_-]{3,20}$/i.test(requestedAlias)) {
-    result.textContent = 'Custom alias can only contain letters, numbers, hyphen, and underscore.';
-    currentShortUrl = '';
-    copyButton.disabled = true;
+    showFormError('Custom alias can only contain letters, numbers, hyphen, and underscore.');
     return;
   }
 
@@ -159,9 +166,7 @@ form.addEventListener('submit', (event) => {
   const existing = Object.keys(mappings).find((k) => mappings[k].url === url);
 
   if (requestedAlias && mappings[requestedAlias] && mappings[requestedAlias].url !== url) {
-    result.textContent = 'That custom short code is already taken.';
-    currentShortUrl = '';
-    copyButton.disabled = true;
+    showFormError('That custom short code is already taken.');
     return;
   }
 
@@ -237,7 +242,9 @@ qrButton.addEventListener('click', () => {
   record.clicks += 1;
   const clickedAt = new Date().toISOString();
   record.lastClickedAt = clickedAt;
-  record.clickDates.push(clickedAt);
+  const today = new Date(clickedAt).toDateString();
+  record.clicksToday = record.clicksTodayDate === today ? record.clicksToday + 1 : 1;
+  record.clicksTodayDate = today;
   try {
     writeMappings(mappings);
   } catch (error) {
