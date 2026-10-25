@@ -51,6 +51,7 @@ A simple, client-side URL shortener web application. Enter a long URL and genera
    - If the input is empty, you'll see an error message
    - If the URL is invalid or uses an unsupported protocol, you'll be prompted to enter a valid HTTP or HTTPS URL
    - If browser storage cannot be read or written, the app displays an error instead of presenting an unsaved link as successful
+   - Invalid submissions clear the previous result, QR code, and copy status so stale actions cannot be mistaken for the current request
    - Unknown or invalid short codes display an error instead of redirecting
 
 ## Technical Details

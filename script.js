@@ -16,6 +16,18 @@ const clickCount = document.getElementById('click-count');
 const todayClickCount = document.getElementById('today-click-count');
 let currentShortUrl = '';
 
+function getTodayClicks(value) {
+  const today = new Date().toDateString();
+  if (value && value.clicksTodayDate === today && Number.isFinite(value.clicksToday)) {
+    return { clicksTodayDate: today, clicksToday: value.clicksToday };
+  }
+
+  const legacyClicks = value && Array.isArray(value.clickDates)
+    ? value.clickDates.filter((date) => new Date(date).toDateString() === today).length
+    : 0;
+  return { clicksTodayDate: legacyClicks ? today : null, clicksToday: legacyClicks };
+}
+
 function readMappings() {
   try {
     const s = localStorage.getItem(STORAGE_KEY);
