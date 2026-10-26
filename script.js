@@ -11,6 +11,8 @@ const qrBox = document.getElementById('qr-box');
 const qrCode = document.getElementById('qr-code');
 const historyEmpty = document.getElementById('history-empty');
 const historyList = document.getElementById('history-list');
+const historySearch = document.getElementById('history-search');
+const historySearchStatus = document.getElementById('history-search-status');
 const linkCount = document.getElementById('link-count');
 const clickCount = document.getElementById('click-count');
 const todayClickCount = document.getElementById('today-click-count');
@@ -113,6 +115,22 @@ function generateQrCode(dataUrl) {
   qrBox.hidden = false;
 }
 
+function filterHistory() {
+  const query = historySearch.value.trim().toLowerCase();
+  let visibleCount = 0;
+  [...historyList.children].forEach((item) => {
+    item.hidden = !item.dataset.search.includes(query);
+    if (!item.hidden) visibleCount += 1;
+  });
+  historyEmpty.hidden = visibleCount > 0;
+  historyEmpty.textContent = historyList.childElementCount
+    ? 'No links match your search.'
+    : 'Your shortened links will appear here.';
+  historySearchStatus.textContent = query
+    ? `${visibleCount} matching ${visibleCount === 1 ? 'link' : 'links'}.`
+    : `Showing all ${visibleCount} ${visibleCount === 1 ? 'link' : 'links'}.`;
+}
+
 function renderHistory(mappings) {
   const entries = Object.entries(mappings).sort((a, b) => (
     new Date(b[1].createdAt) - new Date(a[1].createdAt)
@@ -126,7 +144,6 @@ function renderHistory(mappings) {
   clickCount.textContent = totalClicks;
   todayClickCount.textContent = clicksToday;
   historyList.replaceChildren();
-  historyEmpty.hidden = entries.length > 0;
 
   entries.forEach(([code, record]) => {
     const item = document.createElement('li');
@@ -138,12 +155,16 @@ function renderHistory(mappings) {
     shortLink.textContent = shortUrl;
     shortLink.target = '_blank';
     shortLink.rel = 'noopener noreferrer';
+    item.dataset.search = `${shortUrl} ${record.url}`.toLowerCase();
     target.textContent = record.url;
     clicks.textContent = `${record.clicks} ${record.clicks === 1 ? 'click' : 'clicks'}`;
     item.append(shortLink, target, clicks);
     historyList.append(item);
   });
+  filterHistory();
 }
+
+historySearch.addEventListener('input', filterHistory);
 
 form.addEventListener('submit', (event) => {
   event.preventDefault();
