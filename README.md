@@ -9,10 +9,10 @@ The goal is not just to build a functional URL shortener, but also to understand
 - ✅ Simple, responsive interface for shortening URLs
 - ✅ Generates random 6-character short codes
 - ✅ URL validation supporting HTTP and HTTPS
-- ✅ Accessible real-time feedback using `aria-live`
+- ✅ Accessible real-time feedback and search-result announcements using `aria-live`
 - ✅ Browser-based URL mapping storage using `localStorage`
 - ✅ Resolves short links through the `?u=` query parameter
-- ✅ Displays local link history with clickable short URLs and original URLs
+- ✅ Displays searchable local link history with clickable short URLs and original URLs
 - ✅ Tracks total clicks and daily clicks for each browser profile
 - ✅ Handles invalid URLs, unknown short codes, and storage errors
 - ✅ No backend or external dependencies required in the current version
