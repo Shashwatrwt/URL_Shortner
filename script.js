@@ -130,10 +130,14 @@ function renderHistory(mappings) {
 
   entries.forEach(([code, record]) => {
     const item = document.createElement('li');
-    const shortLink = document.createElement('strong');
+    const shortLink = document.createElement('a');
     const target = document.createElement('span');
     const clicks = document.createElement('span');
-    shortLink.textContent = buildShortUrlForCode(code);
+    const shortUrl = buildShortUrlForCode(code);
+    shortLink.href = shortUrl;
+    shortLink.textContent = shortUrl;
+    shortLink.target = '_blank';
+    shortLink.rel = 'noopener noreferrer';
     target.textContent = record.url;
     clicks.textContent = `${record.clicks} ${record.clicks === 1 ? 'click' : 'clicks'}`;
     item.append(shortLink, target, clicks);

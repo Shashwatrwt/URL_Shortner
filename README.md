@@ -12,7 +12,7 @@ The goal is not just to build a functional URL shortener, but also to understand
 - ✅ Accessible real-time feedback using `aria-live`
 - ✅ Browser-based URL mapping storage using `localStorage`
 - ✅ Resolves short links through the `?u=` query parameter
-- ✅ Displays local link history with original and shortened URLs
+- ✅ Displays local link history with clickable short URLs and original URLs
 - ✅ Tracks total clicks and daily clicks for each browser profile
 - ✅ Handles invalid URLs, unknown short codes, and storage errors
 - ✅ No backend or external dependencies required in the current version

@@ -297,9 +297,21 @@ form {
   font-size: 0.86rem;
 }
 
-#history-list strong {
+#history-list a {
   color: var(--text);
   overflow-wrap: anywhere;
+  text-decoration: underline;
+  text-decoration-color: rgba(160, 228, 233, 0.55);
+}
+
+#history-list a:hover {
+  color: var(--success);
+  text-decoration-color: currentColor;
+}
+
+#history-list a:focus-visible {
+  outline: 2px solid var(--accent-strong);
+  outline-offset: 3px;
 }
 
 #history-list li span {
