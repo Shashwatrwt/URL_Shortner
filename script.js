@@ -172,6 +172,7 @@ function renderHistory(mappings) {
 
 historySearch.addEventListener('input', filterHistory);
 
+historyList.addEventListener('click', (event) => {
 form.addEventListener('submit', (event) => {
   event.preventDefault();
   const url = input.value.trim();
