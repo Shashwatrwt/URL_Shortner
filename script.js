@@ -173,6 +173,24 @@ function renderHistory(mappings) {
 historySearch.addEventListener('input', filterHistory);
 
 historyList.addEventListener('click', (event) => {
+  const button = event.target.closest('.delete-link');
+  if (!button || !window.confirm(`Delete short link "${button.dataset.code}"?`)) return;
+
+  const mappings = loadMappings();
+  if (!mappings) return;
+  delete mappings[button.dataset.code];
+  try {
+    writeMappings(mappings);
+  } catch (error) {
+    showStorageError(error);
+    return;
+  }
+  if (new URL(currentShortUrl || window.location.href).searchParams.get('u') === button.dataset.code) {
+    showFormError('This short link was removed from your history.');
+  }
+  renderHistory(mappings);
+});
+
 form.addEventListener('submit', (event) => {
   event.preventDefault();
   const url = input.value.trim();
