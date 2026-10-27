@@ -309,6 +309,14 @@ form {
   font-size: 0.86rem;
 }
 
+#history-list .delete-link {
+  width: auto;
+  padding: 6px 9px;
+  background-color: #9c3d48;
+  color: var(--text);
+  font-size: 0.75rem;
+}
+
 #history-list a {
   color: var(--text);
   overflow-wrap: anywhere;
