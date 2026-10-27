@@ -299,7 +299,7 @@ form {
 
 #history-list li {
   display: grid;
-  grid-template-columns: minmax(180px, 1fr) minmax(180px, 2fr) auto;
+  grid-template-columns: minmax(180px, 1fr) minmax(180px, 2fr) auto auto;
   gap: 16px;
   align-items: center;
   padding: 12px 14px;
@@ -376,7 +376,7 @@ form {
   }
 
   #history-list li {
-    grid-template-columns: 1fr auto;
+    grid-template-columns: 1fr auto auto;
   }
 
   #history-list li span:nth-child(2) {
