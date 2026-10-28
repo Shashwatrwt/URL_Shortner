@@ -12,6 +12,7 @@ const qrCode = document.getElementById('qr-code');
 const historyEmpty = document.getElementById('history-empty');
 const historyList = document.getElementById('history-list');
 const historySearch = document.getElementById('history-search');
+const clearHistorySearch = document.getElementById('clear-history-search');
 const historySearchStatus = document.getElementById('history-search-status');
 const linkCount = document.getElementById('link-count');
 const clickCount = document.getElementById('click-count');
@@ -117,6 +118,7 @@ function generateQrCode(dataUrl) {
 
 function filterHistory() {
   const query = historySearch.value.trim().toLowerCase();
+  clearHistorySearch.disabled = !query;
   let visibleCount = 0;
   [...historyList.children].forEach((item) => {
     item.hidden = !item.dataset.search.includes(query);
@@ -171,6 +173,11 @@ function renderHistory(mappings) {
 }
 
 historySearch.addEventListener('input', filterHistory);
+clearHistorySearch.addEventListener('click', () => {
+  historySearch.value = '';
+  filterHistory();
+  historySearch.focus();
+});
 
 historyList.addEventListener('click', (event) => {
   const button = event.target.closest('.delete-link');
