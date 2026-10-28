@@ -277,6 +277,17 @@ form {
   margin: 0;
 }
 
+.history-search-row {
+  display: flex;
+  gap: 8px;
+  margin: 12px 0;
+}
+
+.history-search-row button {
+  width: auto;
+  padding: 8px 12px;
+}
+
 .visually-hidden {
   position: absolute;
   width: 1px;
