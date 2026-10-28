@@ -43,7 +43,10 @@
           <span><strong id="today-click-count">0</strong> today</span>
         </div>
       </div>
-      <input id="history-search" type="search" aria-label="Search link history" placeholder="Search short or destination URL" />
+      <div class="history-search-row">
+        <input id="history-search" type="search" aria-label="Search link history" placeholder="Search short or destination URL" />
+        <button id="clear-history-search" type="button" class="secondary-button" disabled>Clear</button>
+      </div>
       <p id="history-empty">Your shortened links will appear here.</p>
       <p id="history-search-status" class="visually-hidden" role="status" aria-live="polite"></p>
       <ul id="history-list"></ul>
